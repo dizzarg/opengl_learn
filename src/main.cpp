@@ -3,6 +3,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+#include <glm/vec4.hpp>
+
 int main() {
     /* Initialize the library */
     if (!glfwInit()) {
@@ -116,16 +118,19 @@ int main() {
         0, 0, 1,
     };
 
+    glm::vec4 vec4(1);
+
     GLuint VAO;
     glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
 
+    glBindVertexArray(VAO);
     GLuint vertexVBO;
     glGenBuffers(1, &vertexVBO);
     glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBindVertexArray(0);
 
-
+    glBindVertexArray(VAO);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
@@ -136,6 +141,7 @@ int main() {
 
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(1);
+    glBindVertexArray(0);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window)) {

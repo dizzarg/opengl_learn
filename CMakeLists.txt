@@ -18,5 +18,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE glfw)
 add_subdirectory(deps/glad)
 target_link_libraries(${PROJECT_NAME} PRIVATE glad)
 
-
+# GLM
+add_subdirectory(deps/glm)
+target_link_libraries(${PROJECT_NAME} PRIVATE glm)
 
