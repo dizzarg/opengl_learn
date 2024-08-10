@@ -3,7 +3,19 @@ project(gl_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(${PROJECT_NAME} src/main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp
+        src/Window.cpp
+        src/Window.h
+        src/Graphics.cpp
+        src/Graphics.h
+        src/includes.h
+        src/Engine.cpp
+        src/Engine.h
+        src/Shader.cpp
+        src/Shader.h
+        src/ShaderProgram.cpp
+        src/ShaderProgram.h
+)
 
 # GLFW include
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
