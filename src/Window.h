@@ -9,7 +9,7 @@ public:
 
     ~Window();
 
-    [[nodiscard]] bool isClosed() const;
+    [[nodiscard]] bool shouldClose() const;
 
     void processInput() const;
 

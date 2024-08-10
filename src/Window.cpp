@@ -24,7 +24,7 @@ Window::~Window() {
     glfwTerminate();
 }
 
-bool Window::isClosed() const {
+bool Window::shouldClose() const {
     return glfwWindowShouldClose(m_window);
 }
 

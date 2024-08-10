@@ -45,7 +45,7 @@ Engine::Engine() {
 
 void Engine::run() const {
     //m_shaderProgram->bind();
-    while (!m_window->isClosed()) {
+    while (!m_window->shouldClose()) {
         m_window->processInput();
         Graphics::cleanColor();
         //m_shaderProgram->bind();
