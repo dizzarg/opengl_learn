@@ -19,7 +19,6 @@ Window::Window(unsigned int width, unsigned int height, const char *title): m_he
 }
 
 Window::~Window() {
-    std::cout << "Deleting window: " << m_window << "" << std::endl;
     glfwDestroyWindow(m_window);
     glfwTerminate();
 }

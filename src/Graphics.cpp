@@ -29,7 +29,6 @@ Graphics::Graphics() {
 }
 
 Graphics::~Graphics() {
-    std::cout << "Deleting graphics: " << std::endl;
 }
 
 void Graphics::cleanColor() {

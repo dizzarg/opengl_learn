@@ -14,7 +14,6 @@ Shader::Shader(const unsigned int type, const char *source) {
         std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
         m_id = 0;
     }
-    std::cout << "Creatied shader: " << shader << "" << std::endl;
     m_id = shader;
 }
 

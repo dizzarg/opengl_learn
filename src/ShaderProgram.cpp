@@ -22,7 +22,6 @@ ShaderProgram::ShaderProgram(const std::vector<Shader>& shaders) {
 }
 
 ShaderProgram::~ShaderProgram() {
-    std::cout << "Deleting program: " << m_id << "" << std::endl;
     glDeleteProgram(m_id);
 }
 

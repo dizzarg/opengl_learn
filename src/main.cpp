@@ -109,12 +109,14 @@ class Qaudro {
 
 int main() {
     try {
-        const Engine engine;
-        engine.run();
+        const auto engine = new Engine();
+        engine->run();
+        delete engine;
+        return EXIT_SUCCESS;
     } catch (const std::exception &e) {
         std::cout << "Exception: " << e.what() << std::endl;
+        return EXIT_FAILURE;
     }
-    return EXIT_SUCCESS;
 }
 
 
@@ -181,6 +183,7 @@ int main1() {
     glGenBuffers(1, &vertexVBO);
     glBindBuffer(GL_ARRAY_BUFFER, vertexVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
     const GLint posAttrib = glGetAttribLocation(program, "position");
     glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(posAttrib);
