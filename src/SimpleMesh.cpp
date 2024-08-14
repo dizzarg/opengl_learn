@@ -4,8 +4,10 @@
 
 SimpleMesh::SimpleMesh(const ShaderProgram &shader, const std::vector<Vertex> &vertices)  {
     glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
+    // begin VAO
     glBindVertexArray(vao);
+
+    glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER,vertices.size() * sizeof(Vertex),  &vertices.front(),GL_STATIC_DRAW);
     // position attribute
@@ -17,6 +19,7 @@ SimpleMesh::SimpleMesh(const ShaderProgram &shader, const std::vector<Vertex> &v
     glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(colorAttrib);
 
+    // end VAO
     glBindVertexArray(0);
 }
 
