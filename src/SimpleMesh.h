@@ -18,13 +18,13 @@ struct Vertex {
 class SimpleMesh {
     unsigned int vao{}, vbo{};
 public:
-    explicit SimpleMesh(const ShaderProgram &shader, const std::vector<Vertex> &vertices);
+    explicit SimpleMesh(const std::vector<Vertex> &vertices);
     SimpleMesh(const SimpleMesh &) = delete;
     SimpleMesh(SimpleMesh &&) = delete;
     SimpleMesh &operator=(const SimpleMesh &) = delete;
     SimpleMesh &operator=(SimpleMesh &&) = delete;
     ~SimpleMesh();
-    void draw() const;
+    void draw(const ShaderProgram &shader) const;
 };
 
 

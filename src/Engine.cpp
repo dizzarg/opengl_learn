@@ -51,7 +51,7 @@ Engine::Engine() {
         {-0.5, -0.5, 0, 1.0f, 0.0f, 0.0f},
         {0.5, 0.5, 0,   0.0f, 0.0f, 1.0f}
     };
-    m_triangleMesh = new SimpleMesh(*m_defaultShaderProgram, vertices);
+    m_triangleMesh = new SimpleMesh(vertices);
 }
 
 Engine::~Engine() {
@@ -65,9 +65,6 @@ void Engine::run() const {
     while (!m_window->shouldClose()) {
         m_window->processInput();
         Graphics::cleanColor();
-        m_defaultShaderProgram->bind();
-        m_triangleMesh->draw();
-        ShaderProgram::unbind();
-        //m_shaderProgram->bind();
+        m_triangleMesh->draw(*m_defaultShaderProgram);
     }
 }

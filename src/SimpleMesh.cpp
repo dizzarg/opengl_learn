@@ -2,7 +2,7 @@
 #include <glad/glad.h>
 #include "ShaderProgram.h"
 
-SimpleMesh::SimpleMesh(const ShaderProgram &shader, const std::vector<Vertex> &vertices)  {
+SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices)  {
     glGenVertexArrays(1, &vao);
     // begin VAO
     glBindVertexArray(vao);
@@ -10,14 +10,6 @@ SimpleMesh::SimpleMesh(const ShaderProgram &shader, const std::vector<Vertex> &v
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER,vertices.size() * sizeof(Vertex),  &vertices.front(),GL_STATIC_DRAW);
-    // position attribute
-    const GLint posAttrib = glGetAttribLocation(shader.getId(), "position");
-    glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
-    glEnableVertexAttribArray(posAttrib);
-    // color attribute
-    const GLint colorAttrib = glGetAttribLocation(shader.getId(), "color");
-    glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(colorAttrib);
 
     // end VAO
     glBindVertexArray(0);
@@ -28,8 +20,19 @@ SimpleMesh::~SimpleMesh() {
     glDeleteVertexArrays(1, &vao);
 }
 
-void SimpleMesh::draw() const {
+void SimpleMesh::draw(const ShaderProgram &shader) const {
+    shader.bind();
     glBindVertexArray(vao);
+    // position attribute
+    const GLint posAttrib = glGetAttribLocation(shader.getId(), "position");
+    glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+    glEnableVertexAttribArray(posAttrib);
+    // color attribute
+    const GLint colorAttrib = glGetAttribLocation(shader.getId(), "color");
+    glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(colorAttrib);
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
+    ShaderProgram::unbind();
 }
