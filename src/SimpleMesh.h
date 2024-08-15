@@ -5,6 +5,7 @@
 #include "glm/vec2.hpp"
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
+#include "glm/detail/type_quat.hpp"
 
 struct Vertex {
     float x, y, z;
@@ -20,6 +21,8 @@ class SimpleMesh {
     unsigned int vao{0}, vbo{0};
     glm::vec3 m_position = glm::vec3(0.0f);
     glm::vec3 m_scale = glm::vec3(1.0f);
+    glm::quat m_rotation;
+
 public:
     explicit SimpleMesh(const std::vector<Vertex> &vertices);
     SimpleMesh(const SimpleMesh &) = delete;
@@ -31,6 +34,8 @@ public:
 
     void scale(glm::vec3 vec);
     void move(glm::vec3 vec);
+
+    void rotate();
 };
 
 
