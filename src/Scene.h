@@ -7,6 +7,7 @@ class SimpleMesh;
 class Scene {
     ShaderProgram * m_defaultProgram;
     SimpleMesh * m_mesh;
+    float speed = 0.01f;
 public:
     Scene();
     ~Scene();

@@ -3,6 +3,7 @@
 #include "ShaderProgram.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
+#include  "cube.cpp"
 
 SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices)  {
     glGenVertexArrays(1, &vao);
@@ -36,9 +37,17 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
 
     auto model = glm::mat4(1.0f);
     model = glm::translate(model, m_position);
-    model = glm::rotate(model, m_rotationZ_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
+    model = glm::rotate(model, glm::radians(m_rotationX_Angle), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(m_rotationY_Angle), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(m_rotationZ_Angle), glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, m_scale);
     glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+    auto view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
+    glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     glBindVertexArray(vao);
     // position attribute
@@ -50,7 +59,7 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
     glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(colorAttrib);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
     glBindVertexArray(0);
     ShaderProgram::unbind();
 }
@@ -65,5 +74,13 @@ void SimpleMesh::move(const glm::vec3 vec) {
 
 void SimpleMesh::rotateZ(const float angle) {
     m_rotationZ_Angle+=angle;
+}
+
+void SimpleMesh::rotateX(const float angle) {
+    m_rotationZ_Angle+=angle;
+}
+
+void SimpleMesh::rotateY(const float angle) {
+    m_rotationY_Angle+=angle;
 }
 
