@@ -27,7 +27,7 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
 
     auto model = glm::mat4(1.0f);
     model = glm::translate(model, m_position);
-    model = glm::mat4_cast(m_rotation);
+    model = glm::rotate(model, m_rotationZ_Angle, glm::vec3(0.0f, 0.0f, 1.0f));
     model = glm::scale(model, m_scale);
     glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 
@@ -54,7 +54,7 @@ void SimpleMesh::move(const glm::vec3 vec) {
     m_position+=vec;
 }
 
-void SimpleMesh::rotate() {
-    m_rotation = glm::rotate(m_rotation, glm::radians(1.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+void SimpleMesh::rotateZ(const float angle) {
+    m_rotationZ_Angle+=angle;
 }
 

@@ -94,6 +94,12 @@ void Scene::onKey(const int key, const int action) const {
             case GLFW_KEY_RIGHT:
                 m_mesh->move(glm::vec3(0.1f, 0, 0));
             break;
+            case GLFW_KEY_E:
+                m_mesh->rotateZ(-0.1f);
+            break;
+            case GLFW_KEY_Q:
+                m_mesh->rotateZ(0.1f);
+            break;
             default: ;
         }
     }
