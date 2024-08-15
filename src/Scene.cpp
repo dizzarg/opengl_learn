@@ -68,16 +68,33 @@ void Scene::render() const {
 }
 
 void Scene::onKey(const int key, const int action) const {
-    if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
-        m_mesh->scale(glm::vec3(0, 0.1f, 0));
-    }
-    if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
-        m_mesh->scale(glm::vec3(0, -0.1f, 0));
-    }
-    if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
-        m_mesh->scale(glm::vec3(0.1f, 0, 0));
-    }
-    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
-        m_mesh->scale(glm::vec3(-0.1f, 0, 0));
+    if (action == GLFW_PRESS) {
+        switch (key) {
+            case GLFW_KEY_PAGE_UP:
+                m_mesh->scale(glm::vec3(0, 0.1f, 0));
+                break;
+            case GLFW_KEY_PAGE_DOWN:
+                m_mesh->scale(glm::vec3(0, -0.1f, 0));
+                break;
+            case GLFW_KEY_HOME:
+                m_mesh->scale(glm::vec3(0.1f, 0, 0));
+                break;
+            case GLFW_KEY_END:
+                m_mesh->scale(glm::vec3(-0.1f, 0, 0));
+                break;
+            case GLFW_KEY_UP:
+                m_mesh->move(glm::vec3(0, 0.1f, 0));
+            break;
+            case GLFW_KEY_DOWN:
+                m_mesh->move(glm::vec3(0, -0.1f, 0));
+            break;
+            case GLFW_KEY_LEFT:
+                m_mesh->move(glm::vec3(-0.1f, 0, 0));
+            break;
+            case GLFW_KEY_RIGHT:
+                m_mesh->move(glm::vec3(0.1f, 0, 0));
+            break;
+            default: ;
+        }
     }
 }

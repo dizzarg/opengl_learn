@@ -26,8 +26,8 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
     shader.bind();
 
     auto model = glm::mat4(1.0f);
+    model = glm::translate(model, m_position);
     model = glm::scale(model, m_scale);
-    //model = glm::translate(model, m_position);
     glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 
     glBindVertexArray(vao);
@@ -47,4 +47,8 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
 
 void SimpleMesh::scale(const glm::vec3 vec) {
     m_scale+=vec;
+}
+
+void SimpleMesh::move(const glm::vec3 vec) {
+    m_position+=vec;
 }
