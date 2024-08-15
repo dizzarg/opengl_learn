@@ -8,10 +8,19 @@ SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices)  {
     glGenVertexArrays(1, &vao);
     // begin VAO
     glBindVertexArray(vao);
-
+    float * data = new float[vertices.size() * 6];
+    for(int i = 0; i < vertices.size(); i++) {
+        data[i*6 + 0] = vertices[i].position.x;
+        data[i*6 + 1] = vertices[i].position.y;
+        data[i*6 + 2] = vertices[i].position.z;
+        data[i*6 + 3] = vertices[i].color.r;
+        data[i*6 + 4] = vertices[i].color.g;
+        data[i*6 + 5] = vertices[i].color.b;
+    }
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER,vertices.size() * sizeof(Vertex),  &vertices.front(),GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * 6 * sizeof(float),  data,GL_STATIC_DRAW);
+    delete[] data;
 
     // end VAO
     glBindVertexArray(0);

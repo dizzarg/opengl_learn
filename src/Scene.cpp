@@ -47,13 +47,13 @@ Scene::Scene() {
     shaders.emplace_back(GL_FRAGMENT_SHADER, fragmentShaderString);
     m_defaultProgram = new ShaderProgram(shaders);
     const std::vector<Vertex> vertices = {
-        {-0.5, -0.5, 0, 1.0f, 0.0f, 0.0f},
-        {0.5, -0.5, 0,  0.0f, 1.0f, 0.0f},
-        {0.5, 0.5, 0,   0.0f, 0.0f, 1.0f},
+        {glm::vec3(-0.5, -0.5, 0), glm::vec3(1.0f, 0.0f, 0.0f)},
+        {glm::vec3(0.5, -0.5, 0), glm::vec3(0.0f, 1.0f, 0.0f)},
+        {glm::vec3(0.5, 0.5, 0), glm::vec3(0.0f, 0.0f, 1.0f)},
 
-        {-0.5, 0.5, 0,  0.0f, 1.0f, 0.0f},
-        {-0.5, -0.5, 0, 1.0f, 0.0f, 0.0f},
-        {0.5, 0.5, 0,   0.0f, 0.0f, 1.0f}
+        {glm::vec3(-0.5, 0.5, 0), glm::vec3(0.0f, 0.0f, 1.0f)},
+        {glm::vec3(-0.5, -0.5, 0), glm::vec3(1.0f, 0.0f, 1.0f)},
+        {glm::vec3(0.5, 0.5, 0), glm::vec3(0.0f, 0.0f, 1.0f)},
     };
     m_mesh = new SimpleMesh(vertices);
 }

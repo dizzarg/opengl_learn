@@ -8,10 +8,10 @@
 #include "glm/detail/type_quat.hpp"
 
 struct Vertex {
-    float x, y, z;
-    float r, g, b;
-    // glm::vec3 position;
-    // glm::vec3 color;
+    // float x, y, z;
+    // float r, g, b;
+    glm::vec3 position;
+    glm::vec3 color;
     //glm::vec2 texture;
 
 };
