@@ -17,6 +17,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/ShaderProgram.h
         src/SimpleMesh.cpp
         src/SimpleMesh.h
+        src/Scene.cpp
+        src/Scene.h
 )
 
 # GLFW include
