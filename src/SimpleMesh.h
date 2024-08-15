@@ -1,6 +1,7 @@
 #ifndef TRIANGLEMESH_H
 #define TRIANGLEMESH_H
 #include "ShaderProgram.h"
+#include "glm/fwd.hpp"
 #include "glm/vec2.hpp"
 #include "glm/vec3.hpp"
 #include "glm/vec4.hpp"
@@ -17,6 +18,7 @@ struct Vertex {
 
 class SimpleMesh {
     unsigned int vao{0}, vbo{0};
+    glm::vec3 m_scale = glm::vec3(1.0f);
 public:
     explicit SimpleMesh(const std::vector<Vertex> &vertices);
     SimpleMesh(const SimpleMesh &) = delete;
@@ -25,6 +27,8 @@ public:
     SimpleMesh &operator=(SimpleMesh &&) = delete;
     ~SimpleMesh();
     void draw(const ShaderProgram &shader) const;
+
+    void scale(glm::vec3 vec);
 };
 
 

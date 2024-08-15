@@ -1,6 +1,8 @@
 #include "SimpleMesh.h"
 #include <glad/glad.h>
 #include "ShaderProgram.h"
+#include "glm/ext/matrix_transform.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices)  {
     glGenVertexArrays(1, &vao);
@@ -22,6 +24,12 @@ SimpleMesh::~SimpleMesh() {
 
 void SimpleMesh::draw(const ShaderProgram &shader) const {
     shader.bind();
+
+    auto model = glm::mat4(1.0f);
+    model = glm::scale(model, m_scale);
+    //model = glm::translate(model, m_position);
+    glUniformMatrix4fv(glGetUniformLocation(shader.getId(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+
     glBindVertexArray(vao);
     // position attribute
     const GLint posAttrib = glGetAttribLocation(shader.getId(), "position");
@@ -35,4 +43,8 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
     ShaderProgram::unbind();
+}
+
+void SimpleMesh::scale(const glm::vec3 vec) {
+    m_scale+=vec;
 }

@@ -12,6 +12,7 @@ Engine::Engine() {
     m_window = new Window(800, 600, "OpenGL Engine");
     m_graphics = new Graphics();
     m_scene = new Scene();
+    m_window->setScene(m_scene);
 }
 
 Engine::~Engine() {

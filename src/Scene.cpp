@@ -9,6 +9,7 @@
 
 #include "Shader.h"
 #include "SimpleMesh.h"
+#include "GLFW/glfw3.h"
 
 // language=glsl
 auto vertexShaderString = R"glsl(
@@ -18,8 +19,12 @@ auto vertexShaderString = R"glsl(
 
         out vec3 vertex_color;
 
+        //uniform mat4 projection;
+       // uniform mat4 view;
+        uniform mat4 model;
+
         void main() {
-           gl_Position  = vec4(position, 1.0);
+           gl_Position  = model * vec4(position, 1.0);
            vertex_color = color;
         }
     )glsl";
@@ -33,7 +38,6 @@ auto fragmentShaderString = R"glsl(
 
         void main() {
             frag_color = vec4(vertex_color, 1.0f);
-            //frag_color = vec4(0.3f, 0.5f, 0.5f, 1.0f);
         }
     )glsl";
 
@@ -41,7 +45,7 @@ Scene::Scene() {
     std::vector<Shader> shaders;
     shaders.emplace_back(GL_VERTEX_SHADER, vertexShaderString);
     shaders.emplace_back(GL_FRAGMENT_SHADER, fragmentShaderString);
-    m_defaultShaderProgram = new ShaderProgram(shaders);
+    m_defaultProgram = new ShaderProgram(shaders);
     const std::vector<Vertex> vertices = {
         {-0.5, -0.5, 0, 1.0f, 0.0f, 0.0f},
         {0.5, -0.5, 0,  0.0f, 1.0f, 0.0f},
@@ -51,14 +55,29 @@ Scene::Scene() {
         {-0.5, -0.5, 0, 1.0f, 0.0f, 0.0f},
         {0.5, 0.5, 0,   0.0f, 0.0f, 1.0f}
     };
-    m_triangleMesh = new SimpleMesh(vertices);
+    m_mesh = new SimpleMesh(vertices);
 }
 
 Scene::~Scene() {
-    delete m_defaultShaderProgram;
-    delete m_triangleMesh;
+    delete m_defaultProgram;
+    delete m_mesh;
 }
 
 void Scene::render() const {
-    m_triangleMesh->draw(*m_defaultShaderProgram);
+    m_mesh->draw(*m_defaultProgram);
+}
+
+void Scene::onKey(const int key, const int action) const {
+    if (key == GLFW_KEY_UP && action == GLFW_PRESS) {
+        m_mesh->scale(glm::vec3(0, 0.1f, 0));
+    }
+    if (key == GLFW_KEY_DOWN && action == GLFW_PRESS) {
+        m_mesh->scale(glm::vec3(0, -0.1f, 0));
+    }
+    if (key == GLFW_KEY_LEFT && action == GLFW_PRESS) {
+        m_mesh->scale(glm::vec3(0.1f, 0, 0));
+    }
+    if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS) {
+        m_mesh->scale(glm::vec3(-0.1f, 0, 0));
+    }
 }

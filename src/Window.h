@@ -1,7 +1,8 @@
 #ifndef WINDOW_H
 #define WINDOW_H
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+
+struct GLFWwindow;
+class Scene;
 
 class Window {
 public:
@@ -28,10 +29,15 @@ public:
         return m_width;
     }
 
+    void setScene(Scene *scene) {
+        m_scene = scene;
+    }
+
 private:
     GLFWwindow * m_window;
     const unsigned int m_height;
     const unsigned int m_width;
+    Scene * m_scene = nullptr;
 };
 
 #endif //WINDOW_H

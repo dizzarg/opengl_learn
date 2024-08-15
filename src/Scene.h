@@ -5,12 +5,14 @@ class ShaderProgram;
 class SimpleMesh;
 
 class Scene {
-    ShaderProgram * m_defaultShaderProgram;
-    SimpleMesh * m_triangleMesh;
+    ShaderProgram * m_defaultProgram;
+    SimpleMesh * m_mesh;
 public:
     Scene();
     ~Scene();
     void render() const;
+
+    void onKey(int key, int action) const;
 };
 
 
