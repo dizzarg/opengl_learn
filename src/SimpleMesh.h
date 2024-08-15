@@ -16,7 +16,7 @@ struct Vertex {
 
 
 class SimpleMesh {
-    unsigned int vao{}, vbo{};
+    unsigned int vao{0}, vbo{0};
 public:
     explicit SimpleMesh(const std::vector<Vertex> &vertices);
     SimpleMesh(const SimpleMesh &) = delete;
