@@ -46,6 +46,10 @@ Scene::Scene() {
     shaders.emplace_back(GL_VERTEX_SHADER, vertexShaderString);
     shaders.emplace_back(GL_FRAGMENT_SHADER, fragmentShaderString);
     m_defaultProgram = new ShaderProgram(shaders);
+    m_defaultProgram->bind();
+    const glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    m_defaultProgram->setMatri4x4("projection", projection);
+    ShaderProgram::unbind();
     m_mesh = new SimpleMesh(cube);
 }
 
@@ -56,12 +60,8 @@ Scene::~Scene() {
 
 void Scene::render() const {
     m_defaultProgram->bind();
-    auto view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    //auto view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
-    glUniformMatrix4fv(glGetUniformLocation(m_defaultProgram->getId(), "view"), 1, GL_FALSE, glm::value_ptr(view));
-
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    glUniformMatrix4fv(glGetUniformLocation(m_defaultProgram->getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    const auto view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    m_defaultProgram->setMatri4x4("view", view);
     m_mesh->draw(*m_defaultProgram);
 }
 

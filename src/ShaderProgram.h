@@ -1,6 +1,7 @@
 #ifndef SHADERPROGRAM_H
 #define SHADERPROGRAM_H
 #include <vector>
+#include "glm/glm.hpp"
 
 class Shader;
 
@@ -33,6 +34,9 @@ public:
 
     ~ShaderProgram();
     void bind() const;
+
+    void setMatri4x4(const char * str, glm::mat4x4 mat) const;
+
     static void unbind();
     [[nodiscard]] unsigned int getId() const;
 };

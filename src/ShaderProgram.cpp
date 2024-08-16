@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "Shader.h"
+#include "glm/gtc/type_ptr.hpp"
 
 ShaderProgram::ShaderProgram(const std::vector<Shader>& shaders) {
     const GLuint program = glCreateProgram();
@@ -27,6 +28,11 @@ ShaderProgram::~ShaderProgram() {
 
 void ShaderProgram::bind() const {
     glUseProgram(m_id);
+}
+
+void ShaderProgram::setMatri4x4(const char *str, glm::mat4x4 mat) const {
+    GLint location = glGetUniformLocation(m_id, str); // TODO cache location
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(mat));
 }
 
 void ShaderProgram::unbind() {
