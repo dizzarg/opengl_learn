@@ -7,6 +7,7 @@
 #include "SimpleMesh.h"
 #include "GLFW/glfw3.h"
 #include "cube.cpp"
+#include "PrimitiveGenerate.h"
 #include "glm/gtc/type_ptr.hpp"
 
 // language=glsl
@@ -50,7 +51,7 @@ Scene::Scene() {
     const glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
     m_defaultProgram->setMatri4x4("projection", projection);
     ShaderProgram::unbind();
-    m_mesh = new SimpleMesh(cube);
+    m_mesh = new SimpleMesh(PrimitiveGenerate::generateCube());
 }
 
 Scene::~Scene() {

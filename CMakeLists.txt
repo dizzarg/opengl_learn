@@ -19,9 +19,10 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/SimpleMesh.h
         src/Scene.cpp
         src/Scene.h
-        src/cube.cpp
         src/Vertex.cpp
         src/Vertex.h
+        src/PrimitiveGenerate.cpp
+        src/PrimitiveGenerate.h
 )
 
 # GLFW include
