@@ -1,15 +1,15 @@
 #include "SimpleMesh.h"
 #include <glad/glad.h>
 #include "ShaderProgram.h"
+#include "Vertex.h"
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
-#include  "cube.cpp"
 
 SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices): m_vertice_count(vertices.size()) {
     glGenVertexArrays(1, &vao);
     // begin VAO
     glBindVertexArray(vao);
-    float * data = new float[m_vertice_count * 6];
+    auto data = new float[m_vertice_count * 6];
     for(int i = 0; i < m_vertice_count; i++) {
         data[i*6 + 0] = vertices[i].position.x;
         data[i*6 + 1] = vertices[i].position.y;

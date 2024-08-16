@@ -23,6 +23,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/Vertex.h
         src/PrimitiveGenerate.cpp
         src/PrimitiveGenerate.h
+        src/Camera.cpp
+        src/Camera.h
 )
 
 # GLFW include

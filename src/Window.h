@@ -1,6 +1,7 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+class Camera;
 struct GLFWwindow;
 class Scene;
 
@@ -33,11 +34,16 @@ public:
         m_scene = scene;
     }
 
+    void setCamera(Camera * camera) {
+        m_camera = camera;
+    }
+
 private:
     GLFWwindow * m_window;
     const unsigned int m_height;
     const unsigned int m_width;
     Scene * m_scene = nullptr;
+    Camera * m_camera = nullptr;
 };
 
 #endif //WINDOW_H

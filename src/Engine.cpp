@@ -10,8 +10,10 @@
 Engine::Engine() {
     m_window = new Window(800, 600, "OpenGL Engine");
     m_graphics = new Graphics();
-    m_scene = new Scene();
+    auto camera = new Camera(static_cast<float>(800), static_cast<float>(600));
+    m_scene = new Scene(camera);
     m_window->setScene(m_scene);
+    m_window->setCamera(camera);
 }
 
 Engine::~Engine() {

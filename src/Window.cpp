@@ -1,8 +1,10 @@
 #include "Window.h"
+
 #include "includes.h"
 #include "Scene.h"
+#include "Camera.h"
 
-Window::Window(unsigned int width, unsigned int height, const char *title): m_height(height), m_width(width) {
+Window::Window(const unsigned int width, const unsigned int height, const char *title): m_height(height), m_width(width) {
     if (!glfwInit()) {
         throw std::runtime_error("Failed to initialize GLFW");
     }
@@ -19,11 +21,15 @@ Window::Window(unsigned int width, unsigned int height, const char *title): m_he
     glfwMakeContextCurrent(m_window);
 
     glfwSetWindowUserPointer(m_window, this);
-    glfwSetKeyCallback(m_window, [](GLFWwindow* window, int key, int scancode, int action, int mode){
-            if(auto* pw = static_cast<Window *>(glfwGetWindowUserPointer(window)); pw->m_scene != nullptr) {
-                pw->m_scene->onKey(key, action);
-            }
-        });
+    glfwSetKeyCallback(m_window, [](GLFWwindow *window, int key, int scancode, int action, int mode) {
+        const auto *pw = static_cast<Window *>(glfwGetWindowUserPointer(window));
+        if (pw->m_scene != nullptr) {
+            pw->m_scene->onKey(key, action);
+        }
+        if (pw->m_camera != nullptr) {
+            pw->m_camera->onKey(key, action);
+        }
+    });
 }
 
 Window::~Window() {

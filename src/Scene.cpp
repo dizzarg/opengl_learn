@@ -3,10 +3,11 @@
 #include <vector>
 #include <glad/glad.h>
 
+#include "Camera.h"
+#include "Vertex.h"
 #include "Shader.h"
 #include "SimpleMesh.h"
 #include "GLFW/glfw3.h"
-#include "cube.cpp"
 #include "PrimitiveGenerate.h"
 #include "glm/gtc/type_ptr.hpp"
 
@@ -42,14 +43,13 @@ auto fragmentShaderString = R"glsl(
 
 
 
-Scene::Scene() {
+Scene::Scene(Camera *camera) : m_camera(camera) {
     std::vector<Shader> shaders;
     shaders.emplace_back(GL_VERTEX_SHADER, vertexShaderString);
     shaders.emplace_back(GL_FRAGMENT_SHADER, fragmentShaderString);
     m_defaultProgram = new ShaderProgram(shaders);
     m_defaultProgram->bind();
-    const glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
-    m_defaultProgram->setMatri4x4("projection", projection);
+    m_defaultProgram->setMatri4x4("projection", camera->getProjectionMatrix());
     ShaderProgram::unbind();
     m_mesh = new SimpleMesh(PrimitiveGenerate::generateCube());
 }
@@ -61,22 +61,12 @@ Scene::~Scene() {
 
 void Scene::render() const {
     m_defaultProgram->bind();
-    const auto view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    m_defaultProgram->setMatri4x4("view", view);
+    m_defaultProgram->setMatri4x4("view", m_camera->getViewMatrix());
     m_mesh->draw(*m_defaultProgram);
 }
 
-void Scene::onKey(const int key, const int action) {
-    const float cameraSpeed = 0.05f; // adjust accordingly
+void Scene::onKey(const int key, const int action) const {
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-        if (key == GLFW_KEY_W)
-            cameraPos += cameraSpeed * cameraFront;
-        if (key == GLFW_KEY_S)
-            cameraPos -= cameraSpeed * cameraFront;
-        if (key == GLFW_KEY_A)
-            cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-        if (key == GLFW_KEY_D)
-            cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         switch (key) {
             case GLFW_KEY_PAGE_UP:
                 m_mesh->scale(glm::vec3(0, speed, 0));
