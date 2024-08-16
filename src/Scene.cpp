@@ -7,6 +7,7 @@
 #include "SimpleMesh.h"
 #include "GLFW/glfw3.h"
 #include "cube.cpp"
+#include "glm/gtc/type_ptr.hpp"
 
 // language=glsl
 auto vertexShaderString = R"glsl(
@@ -54,11 +55,27 @@ Scene::~Scene() {
 }
 
 void Scene::render() const {
+    m_defaultProgram->bind();
+    auto view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+    //auto view = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -3.0f));
+    glUniformMatrix4fv(glGetUniformLocation(m_defaultProgram->getId(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+
+    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+    glUniformMatrix4fv(glGetUniformLocation(m_defaultProgram->getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
     m_mesh->draw(*m_defaultProgram);
 }
 
-void Scene::onKey(const int key, const int action) const {
+void Scene::onKey(const int key, const int action) {
+    const float cameraSpeed = 0.05f; // adjust accordingly
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
+        if (key == GLFW_KEY_W)
+            cameraPos += cameraSpeed * cameraFront;
+        if (key == GLFW_KEY_S)
+            cameraPos -= cameraSpeed * cameraFront;
+        if (key == GLFW_KEY_A)
+            cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+        if (key == GLFW_KEY_D)
+            cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
         switch (key) {
             case GLFW_KEY_PAGE_UP:
                 m_mesh->scale(glm::vec3(0, speed, 0));

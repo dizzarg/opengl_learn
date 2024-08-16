@@ -15,6 +15,7 @@ class SimpleMesh {
     float m_rotationX_Angle = 30.0f;
     float m_rotationY_Angle = -45.0f;
     float m_rotationZ_Angle = 0.0f;
+    unsigned int m_vertice_count;
 
 public:
     explicit SimpleMesh(const std::vector<Vertex> &vertices);
