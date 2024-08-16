@@ -1,7 +1,3 @@
-//
-// Created by dkadyrov on 10.08.2024.
-//
-
 #include "Graphics.h"
 #include "includes.h"
 

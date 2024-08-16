@@ -6,7 +6,6 @@
 #include "Scene.h"
 #include "Window.h"
 #include "SimpleMesh.h"
-#include "glm/vec4.hpp"
 
 Engine::Engine() {
     m_window = new Window(800, 600, "OpenGL Engine");
