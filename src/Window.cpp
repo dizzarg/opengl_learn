@@ -30,6 +30,14 @@ Window::Window(const unsigned int width, const unsigned int height, const char *
             pw->m_camera->onKey(key, action);
         }
     });
+    glfwSetWindowUserPointer(m_window, this);
+    glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow *window, int w, int h) {
+        glViewport(0, 0, w, h);
+        const auto *pw = static_cast<Window *>(glfwGetWindowUserPointer(window));
+        if (pw->m_camera != nullptr) {
+            pw->m_camera->onResize(w, h);
+        }
+    });
 }
 
 Window::~Window() {

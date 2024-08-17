@@ -36,3 +36,8 @@ void Camera::onKey(const int key, const int action) {
 glm::mat4x4 Camera::getProjectionMatrix() {
     return m_perspective;
 }
+
+void Camera::onResize(float width, float height) {
+    m_perspective = glm::ortho(-width / 2, width / 2, -height / 2, height / 2);
+    //m_perspective = glm::perspective(glm::radians(45.0f), width/height, 0.1f, 100.0f);
+}

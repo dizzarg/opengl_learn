@@ -21,6 +21,8 @@ public:
     [[nodiscard]] glm::mat4x4 getViewMatrix() const;
     void onKey(int key, int action);
     glm::mat4x4 getProjectionMatrix();
+
+    void onResize(float width, float height);
 };
 
 
