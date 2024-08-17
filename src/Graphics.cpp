@@ -1,8 +1,8 @@
 #include "Graphics.h"
 #include "includes.h"
+#include "glm/vec4.hpp"
 
 Graphics::Graphics() {
-
     if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
         glfwTerminate();
         throw std::runtime_error("Failed to initialize GLAD");
@@ -22,13 +22,21 @@ Graphics::Graphics() {
     //     std::cout<< glGetStringi(GL_EXTENSIONS, i) <<std::endl;
     // }
     // std::cout << "End" << std::endl;
-    glEnable(GL_DEPTH_TEST);
+    clearBits = GL_COLOR_BUFFER_BIT;
 }
 
 Graphics::~Graphics() {
 }
 
-void Graphics::cleanColor() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+void Graphics::enableDepth() {
+    glEnable(GL_DEPTH_TEST);
+    clearBits |= GL_DEPTH_BUFFER_BIT;
+}
+
+void Graphics::cleanColor(glm::vec4 color) {
+    glClearColor(color.r, color.g, color.b, color.a);
+}
+
+void Graphics::cleanBits() const {
+    glClear(clearBits);
 }

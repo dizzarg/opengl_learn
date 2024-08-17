@@ -4,14 +4,19 @@
 
 #ifndef GRAPHICSENGINE_H
 #define GRAPHICSENGINE_H
+#include "glm/vec4.hpp"
 
 class Graphics {
-
+    unsigned int clearBits;
 public:
     Graphics();
     ~Graphics();
 
-    static void cleanColor();
+    void enableDepth();
+
+    void cleanBits() const;
+
+    static void cleanColor(glm::vec4 color);
 };
 
 
