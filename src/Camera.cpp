@@ -16,12 +16,16 @@ glm::mat4 Camera::getViewMatrix() const {
     return glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 }
 
+void Camera::calcCameraSpeed() {
+    float currentFrame = glfwGetTime();
+    cameraSpeed =  currentFrame - lastFrame;
+    lastFrame = currentFrame;
+}
+
 void Camera::onKey(const int key, const int action) {
 
     if (action == GLFW_PRESS || action == GLFW_REPEAT) {
-        // float currentFrame = glfwGetTime();
-        // cameraSpeed = 2.5f * (currentFrame - lastFrame);
-        // lastFrame = currentFrame;
+        calcCameraSpeed();
         if (key == GLFW_KEY_W)
             cameraPos += cameraSpeed * cameraFront;
         if (key == GLFW_KEY_S)

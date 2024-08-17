@@ -16,9 +16,11 @@ class Camera {
     glm::vec3 cameraUp    = glm::vec3(0.0f, 1.0f,  0.0f);
     glm::mat4x4 m_perspective;
     float lastFrame = 0.0f; // Time of last frame
+    void calcCameraSpeed();
 public:
     Camera(float width, float height);
     [[nodiscard]] glm::mat4x4 getViewMatrix() const;
+
     void onKey(int key, int action);
     glm::mat4x4 getProjectionMatrix();
 
