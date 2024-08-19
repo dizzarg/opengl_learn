@@ -7,7 +7,8 @@
 #include "Window.h"
 #include "SimpleMesh.h"
 
-Engine::Engine() {
+Engine::Engine()
+{
     m_window = new Window(800, 600, "OpenGL Engine");
     m_graphics = new Graphics();
     const auto camera = new Camera(static_cast<float>(800), static_cast<float>(600));
@@ -16,15 +17,18 @@ Engine::Engine() {
     m_window->setCamera(camera);
 }
 
-Engine::~Engine() {
+Engine::~Engine()
+{
     delete m_scene;
     delete m_graphics;
     delete m_window;
 }
 
-void Engine::run() const {
+void Engine::run() const
+{
     m_graphics->enableDepth();
-    while (!m_window->shouldClose()) {
+    while (!m_window->shouldClose())
+    {
         m_window->processInput();
         m_graphics->cleanBits();
         Graphics::cleanColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));

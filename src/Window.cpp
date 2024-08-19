@@ -10,8 +10,11 @@ Window::Window(const unsigned int width, const unsigned int height, const char *
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+    // Without these two hints, nothing above OpenGL version 2.1 is supported
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     m_window = glfwCreateWindow(width, height, title, nullptr, nullptr);
     if (!m_window) {
         glfwTerminate();
