@@ -8,7 +8,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/Window.h
         src/Graphics.cpp
         src/Graphics.h
-        src/includes.h
+        src/app.h
         src/Engine.cpp
         src/Engine.h
         src/Shader.cpp

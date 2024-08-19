@@ -1,9 +1,7 @@
 #ifndef SHADER_H
 #define SHADER_H
-#include <iostream>
 
 class Shader {
-private:
     unsigned int m_id;
 public:
     Shader(unsigned int type, const char *source);

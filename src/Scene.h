@@ -1,16 +1,16 @@
 #ifndef SCENE_H
 #define SCENE_H
-#include "Camera.h"
-#include "glm/vec3.hpp"
 
 class ShaderProgram;
 class SimpleMesh;
+class Camera;
 
 class Scene {
     ShaderProgram * m_defaultProgram;
     SimpleMesh * m_mesh;
-    float speed = 0.01f;
     Camera * m_camera;
+    float speed = 0.01f;
+
 public:
     explicit Scene(Camera *camera);
     ~Scene();

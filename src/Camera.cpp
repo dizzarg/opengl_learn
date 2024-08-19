@@ -17,9 +17,9 @@ glm::mat4 Camera::getViewMatrix() const {
 }
 
 void Camera::calcCameraSpeed() {
-    float currentFrame = glfwGetTime();
-    cameraSpeed =  currentFrame - lastFrame;
-    lastFrame = currentFrame;
+    // float currentFrame = glfwGetTime();
+    // cameraSpeed =  0.5f * currentFrame - lastFrame;
+    // lastFrame = currentFrame;
 }
 
 void Camera::onKey(const int key, const int action) {
@@ -37,7 +37,7 @@ void Camera::onKey(const int key, const int action) {
     }
 }
 
-glm::mat4x4 Camera::getProjectionMatrix() {
+glm::mat4x4 Camera::getProjectionMatrix() const {
     return m_perspective;
 }
 

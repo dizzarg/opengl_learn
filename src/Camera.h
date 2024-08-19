@@ -20,7 +20,7 @@ class Camera {
 public:
     Camera(float width, float height);
     [[nodiscard]] glm::mat4x4 getViewMatrix() const;
-    glm::mat4x4 getProjectionMatrix();
+    glm::mat4x4 getProjectionMatrix() const;
 
     void onKey(int key, int action);
     void onResize(float width, float height);

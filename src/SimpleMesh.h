@@ -1,12 +1,12 @@
 #ifndef TRIANGLEMESH_H
 #define TRIANGLEMESH_H
-#include "ShaderProgram.h"
 #include "glm/fwd.hpp"
 #include "glm/vec2.hpp"
 #include "glm/detail/type_quat.hpp"
 
 
 struct Vertex;
+class ShaderProgram;
 
 class SimpleMesh {
     unsigned int vao{0}, vbo{0};

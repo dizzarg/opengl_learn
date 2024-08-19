@@ -1,6 +1,9 @@
 #include "Window.h"
 
-#include "includes.h"
+#include <stdexcept>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
 #include "Scene.h"
 #include "Camera.h"
 
@@ -41,6 +44,17 @@ Window::Window(const unsigned int width, const unsigned int height, const char *
             pw->m_camera->onResize(w, h);
         }
     });
+
+    // Напичатать все расширения
+    // GLint num;
+    // glGetIntegerv(GL_NUM_EXTENSIONS, &num);
+
+    // std::cout << "Start" << std::endl;
+    //
+    // for (int i = 0; i < num; ++i) {
+    //     std::cout<< glGetStringi(GL_EXTENSIONS, i) <<std::endl;
+    // }
+    // std::cout << "End" << std::endl;
 }
 
 Window::~Window() {

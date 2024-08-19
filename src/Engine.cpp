@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Window.h"
 #include "SimpleMesh.h"
+#include "Camera.h"
 
 Engine::Engine()
 {

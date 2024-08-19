@@ -6,6 +6,7 @@
 #include "Camera.h"
 #include "Vertex.h"
 #include "Shader.h"
+#include "ShaderProgram.h"
 #include "SimpleMesh.h"
 #include "GLFW/glfw3.h"
 #include "PrimitiveGenerate.h"
