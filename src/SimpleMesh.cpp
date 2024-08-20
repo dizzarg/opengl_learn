@@ -5,22 +5,22 @@
 #include "glm/ext/matrix_transform.hpp"
 #include "glm/gtc/type_ptr.hpp"
 
-SimpleMesh::SimpleMesh( const std::vector<Vertex> &vertices): m_vertice_count(vertices.size()) {
+SimpleMesh::SimpleMesh(const std::vector<Vertex> &vertices, const int stride): m_vertice_count(vertices.size()), m_stride(stride) {
     glGenVertexArrays(1, &vao);
     // begin VAO
     glBindVertexArray(vao);
-    auto data = new float[m_vertice_count * 6];
-    for(int i = 0; i < m_vertice_count; i++) {
-        data[i*6 + 0] = vertices[i].position.x;
-        data[i*6 + 1] = vertices[i].position.y;
-        data[i*6 + 2] = vertices[i].position.z;
-        data[i*6 + 3] = vertices[i].color.r;
-        data[i*6 + 4] = vertices[i].color.g;
-        data[i*6 + 5] = vertices[i].color.b;
+    auto data = new float[m_vertice_count * m_stride];
+    for (int i = 0; i < m_vertice_count; i++) {
+        data[i * m_stride + 0] = vertices[i].position.x;
+        data[i * m_stride + 1] = vertices[i].position.y;
+        data[i * m_stride + 2] = vertices[i].position.z;
+        data[i * m_stride + 3] = vertices[i].color.r;
+        data[i * m_stride + 4] = vertices[i].color.g;
+        data[i * m_stride + 5] = vertices[i].color.b;
     }
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, m_vertice_count * 6 * sizeof(float),  data,GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, m_vertice_count * m_stride * sizeof(float), data,GL_STATIC_DRAW);
     delete[] data;
 
     // end VAO
@@ -44,11 +44,12 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
     glBindVertexArray(vao);
     // position attribute
     const GLint posAttrib = glGetAttribLocation(shader.getId(), "position");
-    glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), nullptr);
+    glVertexAttribPointer(posAttrib, 3, GL_FLOAT, GL_FALSE, m_stride * sizeof(float), nullptr);
     glEnableVertexAttribArray(posAttrib);
     // color attribute
     const GLint colorAttrib = glGetAttribLocation(shader.getId(), "color");
-    glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
+    glVertexAttribPointer(colorAttrib, 3, GL_FLOAT, GL_FALSE, m_stride * sizeof(float),
+                          reinterpret_cast<GLvoid *>(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(colorAttrib);
 
     glDrawArrays(GL_TRIANGLES, 0, m_vertice_count);
@@ -57,22 +58,21 @@ void SimpleMesh::draw(const ShaderProgram &shader) const {
 }
 
 void SimpleMesh::scale(const glm::vec3 vec) {
-    m_scale+=vec;
+    m_scale += vec;
 }
 
 void SimpleMesh::move(const glm::vec3 vec) {
-    m_position+=vec;
+    m_position += vec;
 }
 
 void SimpleMesh::rotateZ(const float angle) {
-    m_rotationZ_Angle+=angle;
+    m_rotationZ_Angle += angle;
 }
 
 void SimpleMesh::rotateX(const float angle) {
-    m_rotationZ_Angle+=angle;
+    m_rotationZ_Angle += angle;
 }
 
 void SimpleMesh::rotateY(const float angle) {
-    m_rotationY_Angle+=angle;
+    m_rotationY_Angle += angle;
 }
-

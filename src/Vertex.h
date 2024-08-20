@@ -1,10 +1,6 @@
-//
-// Created by dkadyrov on 16.08.2024.
-//
-
 #ifndef VERTEX_H
 #define VERTEX_H
-#include "glm/vec3.hpp"
+#include <glm/glm.hpp>
 
 
 struct Vertex {
@@ -12,7 +8,7 @@ struct Vertex {
     // float r, g, b;
     glm::vec3 position;
     glm::vec3 color;
-    //glm::vec2 texture;
+    glm::vec2 texture;
 
 };
 

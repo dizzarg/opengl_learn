@@ -51,7 +51,7 @@ Scene::Scene(Camera *camera) : m_camera(camera)
     m_defaultProgram->bind();
     m_defaultProgram->setMatri4x4("projection", camera->getProjectionMatrix());
     ShaderProgram::unbind();
-    m_mesh = new SimpleMesh(PrimitiveGenerate::generateCube());
+    m_mesh = new SimpleMesh(PrimitiveGenerate::generateCube(), 6);
 }
 
 Scene::~Scene()

@@ -16,9 +16,10 @@ class SimpleMesh {
     float m_rotationY_Angle = -45.0f;
     float m_rotationZ_Angle = 0.0f;
     unsigned int m_vertice_count;
+    unsigned int m_stride;
 
 public:
-    explicit SimpleMesh(const std::vector<Vertex> &vertices);
+    SimpleMesh(const std::vector<Vertex> &vertices, int stride);
     SimpleMesh(const SimpleMesh &) = delete;
     SimpleMesh(SimpleMesh &&) = delete;
     SimpleMesh &operator=(const SimpleMesh &) = delete;
